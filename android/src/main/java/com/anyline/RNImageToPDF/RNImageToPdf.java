@@ -17,6 +17,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
+import id.zelory:compressor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +51,7 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
               Document document = new Document();
               File documentFile = getTempFile(documentName);
               PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(documentFile));
+              writer.setCompressionLevel(9);
               document.open();
   
               for (int i = 0; i < imagePaths.size(); i++) {
@@ -57,16 +59,12 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
                   document.setPageSize(img);
                   document.newPage();
                   img.setAbsolutePosition(0, 0);
-                  document.add(img);
+                  compressedImageFile = new Compressor(this).compressToFile(img);
+                  document.add(compressedImageFile);
               }
               document.close();
             
-              Document document1 = new Document();
-              File documentFile1 = getTempFile(documentName);
-              PdfWriter writer1 = PdfWriter.getInstance(document1, new FileOutputStream(documentFile1));
-              writer1.setCompressionLevel(9);
-
-              String filePath = documentFile1.getPath();
+              String filePath = documentFile.getPath();
               WritableMap resultMap = Arguments.createMap();
               resultMap.putString("filePath", filePath);
   
