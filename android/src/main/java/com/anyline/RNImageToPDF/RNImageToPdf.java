@@ -50,9 +50,16 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
               Document document = new Document();
               File documentFile = getTempFile(documentName);
               PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(documentFile));
-              writer.setCompressionLevel(9);
               document.open();
   
+              for (int i = 0; i < imagePaths.size(); i++) {
+                  Image img = Image.getInstance(imagePaths.getString(i));
+                  document.setPageSize(img);
+                  document.newPage();
+                  img.setAbsolutePosition(0, 0);
+                  document.add(img);
+              }
+              writer.setCompressionLevel(9);
               document.close();
   
               String filePath = documentFile.getPath();
