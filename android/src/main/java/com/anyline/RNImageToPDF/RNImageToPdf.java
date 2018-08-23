@@ -17,7 +17,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
-import id.zelory:compressor;
+import id.zelory.compressor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
