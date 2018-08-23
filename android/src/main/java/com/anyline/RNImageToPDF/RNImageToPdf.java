@@ -59,7 +59,7 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
                   document.setPageSize(img);
                   document.newPage();
                   img.setAbsolutePosition(0, 0);
-                  compressedImageFile = new Compressor(this).compressToFile(img);
+                  CompressedImageFile compressedImageFile = new Compressor(this).compressToFile(img);
                   document.add(compressedImageFile);
               }
               document.close();
