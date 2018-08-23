@@ -49,7 +49,6 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
               String documentName = imageObject.getString("name");
               Document document = new Document();
               File documentFile = getTempFile(documentName);
-              PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(documentFile));
               document.open();
   
               for (int i = 0; i < imagePaths.size(); i++) {
@@ -59,9 +58,11 @@ public class RNImageToPdf extends ReactContextBaseJavaModule {
                   img.setAbsolutePosition(0, 0);
                   document.add(img);
               }
-              writer.setCompressionLevel(9);
               document.close();
   
+              PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(documentFile));
+              writer.setCompressionLevel(9);
+            
               String filePath = documentFile.getPath();
               WritableMap resultMap = Arguments.createMap();
               resultMap.putString("filePath", filePath);
